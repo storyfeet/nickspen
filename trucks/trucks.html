@@ -1,0 +1,99 @@
+<canvas width="600px" height="800px" id="mainCanvas"/>
+
+<script>
+
+class Truck {
+	constructor(x,y,sx,sy,draw){
+		this.x = x;
+		this.y = y;
+		this.sx = sx;
+		this.sy = sy;
+		this.drawDetail = draw;
+	}
+	
+	draw(ctx){
+		ctx.save();
+		ctx.translate(this.x,this.y);
+		this.drawDetail(ctx);
+		ctx.restore();		
+	}
+	
+	
+
+}
+
+	
+	function draw(){
+		let ctx= document.getElementById("mainCanvas").getContext("2d");
+		ctx.fillStyle="lime";
+		ctx.fillRect(0,0,600,800);
+		
+		for (let t in trucks){
+			trucks[t].draw(ctx)
+		}
+	
+	}
+	
+	function optimusPrime(ctx){
+		ctx.fillStyle="black";
+		ctx.fillRect(10,40,9,9)
+		ctx.fillRect(95,40,9,9)
+		ctx.fillRect(80,40,9,9)
+		ctx.fillStyle="blue";
+		ctx.fillRect(0,25,10,15)
+		ctx.fillRect(10,25,20,15)
+		ctx.fillStyle="red"
+		ctx.fillRect(30,12,35,28)
+		ctx.fillStyle="gray"
+		ctx.fillRect(65,32,42,8)
+		ctx.fillRect(60,0,4,12)
+		ctx.fillStyle="aqua"
+		ctx.fillRect(21,18,9,7)
+		
+	} 
+	
+	function shadowsTruck(ctx){
+		ctx.fillStyle="darkred";
+		ctx.fillRect(90,10,20,20)	
+		ctx.fillStyle="red"
+		ctx.fillRect(98,15,12,5);
+		ctx.fillStyle="silver";
+		ctx.fillRect(110,20,5,5)
+		ctx.fillStyle="black"
+		ctx.fillRect(0,0,90,30)
+		
+		//Wheels
+		ctx.fillStyle="darkgreen"
+		ctx.beginPath();
+		ctx.ellipse(20,35,10,10,0,0,Math.PI*2);
+		ctx.ellipse(85,35,10,10,0,0,Math.PI*2);
+		ctx.fill();
+
+		ctx.closePath()
+		//ctx.fillRect(10,30,20,20)
+	
+	
+	}   
+	
+	
+	let trucks = [ 
+		new Truck(300,200,-1,0,optimusPrime),
+		new Truck(400,300,5,0,shadowsTruck),
+	]
+	
+	
+	function fps() {
+		for (let t in trucks){
+			let tt = trucks[t];
+			tt.x += tt.sx;
+			tt.y += tt.sy;
+		}
+		
+		draw();
+	}
+	
+	
+	setInterval(fps,50)
+	
+ 
+</script>

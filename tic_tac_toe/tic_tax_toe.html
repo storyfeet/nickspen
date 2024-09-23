@@ -1,0 +1,85 @@
+<html>
+<head>
+	<title>Tic Tac Toe</title>
+	<style>
+	td {
+		border:1px solid red;
+		padding:20px;
+	}
+	td:last-child{
+		border-right:none;
+	
+	}
+	td:first-child{
+		border-left:none;
+	}
+	
+	tr:first-child td{
+		border-top:none;
+	}
+	tr:last-child td{
+		border-bottom:none;
+	}
+	.tic_btn {
+		width:100px;
+		height:100px;
+		font-size:50px;
+	}
+	</style>
+</head>
+<body>
+
+	<h1>tic tac toe </h1>
+	<table>
+		<tr> 
+			<td><button class="tic_btn">-</button></td>
+			<td><button class="tic_btn">-</button></td>
+			<td><button class="tic_btn">-</button></td>
+		</tr> 
+		<tr> 
+			<td><button class="tic_btn">-</button></td>
+			<td><button class="tic_btn">-</button></td>
+			<td><button class="tic_btn">-</button></td>
+		</tr> 
+		<tr> 
+			<td><button class="tic_btn">-</button></td>
+			<td><button class="tic_btn">-</button></td>
+			<td><button class="tic_btn">-</button></td>
+		</tr> 
+	</table>
+
+
+<script>
+let turno=0
+
+function setup(){
+	let btns = document.getElementsByClassName("tic_btn");
+	for (b in btns){
+		btns[b].onclick = buttonClick;
+	
+	}
+}
+
+function buttonClick(b){
+	if (turno===0){
+		b.target.innerHTML="x"
+		turno=1	
+	}else{
+		b.target.innerHTML="O"
+		turno=0
+	}	
+	
+}
+
+setup();
+
+</script>
+
+</body>
+
+
+
+
+
+
+</html>

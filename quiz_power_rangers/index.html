@@ -1,0 +1,25 @@
+<h1 style="color:red;">My First Lesson</h1>
+<h2 id="stinky"> I Stink </h2> 
+<h3> one shall stand one shall fall </h3>
+pleb plb pl p<br>
+readddddddddd readdddddddd
+<button onclick="doThing()">Click here to get a GUN</button>
+
+<a href="https://www.google.com" style="background-color:teal;"> go to google baby </a>
+<script> 
+
+const colors = ["red","green","blue"];
+let n = 0;
+function doThing(){
+	//grab the element with the id "stinky" and put it in the stink variable
+	let stink = document.getElementById("stinky");
+	//change n by one, but bring back to under lenth of list using % for modulus/remainder
+	n = (n+1) % colors.length;
+	
+	stink.style.backgroundColor = colors[n];
+
+	alert ("never gonna give you up");
+}
+
+</script>
+

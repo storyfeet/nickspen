@@ -1,0 +1,122 @@
+<canvas width="800" height="600" id="main_canvas"/>
+<script>
+const dom = {
+	canvas : document.getElementById("main_canvas"),
+}
+function t100(s,f){
+	return new Tween(s,f,40)
+}
+class Tween {
+	constructor(start,fin,nframes){
+		this.start = start;	
+		this.fin = fin;
+		this.nframes = nframes;
+
+	}
+
+	pos(frame){
+		if (frame > this.nframes) frame = this.nframes;
+		if (frame < 0) frame = 0;
+		let dist=this.fin -this.start;
+		let trav = dist * frame/ this.nframes;
+		return  this.start+trav;
+	}
+}
+
+function val(p,frame){
+	if (p.pos === undefined ){
+		return p
+	}
+	return p.pos(frame)
+}
+
+class Box{
+	constructor(x,y,w,h,fill,stroke = null){
+		this.x= x;
+		this.y = y;
+		this.h = h;
+		this.w = w;
+		this.fill = fill;
+		this.stroke= stroke;
+
+	}
+	draw(ctx, frame){
+		let dx = val(this.x,frame)
+		let dy = val(this.y,frame)
+		let dh = val(this.h,frame)
+		let dw = val(this.w,frame)
+		if (this.fill != null ){
+			ctx.fillStyle = this.fill;
+			ctx.fillRect (dx,dy,dw,dh);
+		}
+		if (this.stroke != null){
+			ctx.stroke = this.stroke;
+			ctx.lineWidth = 5;
+			ctx.strokeRect(dx,dy,dw,dh);
+		}
+
+	}
+}
+
+
+class Polygon{
+	constructor(points,color) {
+		this.points = points;
+		this.color = color;
+	}
+
+	draw(ctx,frame) {
+		ctx.fillStyle= this.color;
+		ctx.beginPath();
+		for (let p in this.points){
+			let px = this.points[p].x;
+			let py = this.points[p].y;
+			ctx.lineTo(val(px,frame),val(py,frame))
+		}
+		ctx.fill()
+		ctx.closePath();
+	}
+}
+
+
+let optimus = [
+	//Optimus
+	//body
+	new Box(t100(170,20), t100(140,50),t100(110,80),t100(120,120),"red"),
+	new Box(t100(60,45),t100(260,160),t100(230,30),t100(40,190),"blue"),
+	//head
+	new Box(t100(20,40),t100(260,20),t100(40,40),t100(40,40),"blue"),
+
+	new Box(t100(150,40),t100(230,80),t100(30,40),t100(50,90),"red","black"),
+
+	];
+let shadow = [
+	//head
+	new Box(80,20,40,40,"black"),
+	//quills
+	new Polygon([{x:70,y:t100(10,20)},{x:80,y:20},{x:80,y:30}],"black"),
+	new Polygon([{x:70,y:t100(30,40)},{x:80,y:40},{x:80,y:50}],"black"),
+
+	];
+
+let frame = -50;
+function update(){
+	frame += 1;
+	let ctx= dom.canvas.getContext("2d");
+
+	ctx.fillStyle = "grey";
+	ctx.fillRect(0,0,800,600);
+
+	for (let b = 0; b < optimus.length ; b++){
+		optimus[b].draw(ctx,frame);
+	}
+	ctx.save()
+	ctx.translate(300,0)
+	for (let b = 0; b < shadow.length ; b++){
+		shadow[b].draw(ctx,frame);
+	}
+	ctx.restore()
+
+}
+setInterval(update,100)
+</script>

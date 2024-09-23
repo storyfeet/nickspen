@@ -1,0 +1,77 @@
+<style>
+h1 {
+	color:gold;
+}
+div {
+	border:1px solid silver;
+	padding:20px;
+}
+span {
+	font-size:200%;
+}
+</style>
+<h1> POWER RANGERS QUIZ </h1> 
+<div>
+Question :  <span id="question_box">__</span>
+</div>
+Answer : <input id="answer_box" placeholder="your answer"/>
+<button onclick="nextQuestion()"> next question</button>
+<button onclick="checkAnswer()"> check answerssss</button>
+<div id="is_correct">
+
+</div>
+<script>
+
+const dom = {
+	qBox : document.getElementById("question_box"),
+	aBox : document.getElementById("answer_box"),
+	cBox : document.getElementById("is_correct")
+};
+
+const questions = [
+	{	question:"Which ranger had five different ranger forms",
+		answer:"Tommy Oliver"
+	},
+	{	question:"How many different mmred rangers are there",
+		answer:"2"    
+	},
+	{   question:"How many dino	fury zords are there",
+		answer:"10"
+	},
+    {  question: "What is the WHITE RANGER'S sword named" ,
+    	answer: "Saba" 
+    }                                     
+		
+		  
+];
+
+let currentQuestion = 0;
+
+function nextQuestion(){
+	currentQuestion = Math.floor(Math.random() * questions.length);
+	dom.qBox.innerText = questions[currentQuestion].question;
+}
+
+function checkAnswer () {
+	let userAnswer = dom.aBox.value;
+	let answer = questions[currentQuestion].answer;
+
+	dom.cBox.innerText = "";	
+	let tBox = document.createElement("img");
+	if (userAnswer === answer) {
+		tBox.src = "tick.svg";
+	}else {
+		tBox.src = "cross.svg";
+		
+	}
+	dom.cBox.appendChild(tBox);
+	let aSpan =	document.createElement("span");
+	aSpan.innerText = answer;
+	dom.cBox.appendChild (aSpan);
+}
+
+</script>
+
+
+
+

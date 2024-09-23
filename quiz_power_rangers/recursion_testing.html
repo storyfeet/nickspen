@@ -1,0 +1,75 @@
+<html>
+<head>
+	<title>Testing</title>
+	<meta charset="utf-8">
+	<style>
+	div{
+		border:1px solid black;
+		padding:10px;
+	}
+	button{
+		padding:10px;
+		font-size:200%;
+	}
+	</style>
+</head>
+
+<body>
+	<div>
+		<input id="input1" type="text"/>
+		<button onclick="dothing()">Do 💩️Thing</button>
+	</div>
+	<div>
+		<span id="answer"></span>
+	</div>
+	
+	<div>
+		<span id="logger"></span>
+	</div>
+
+</body>
+<script>
+const dom = {
+	input1:document.getElementById("input1"),
+	answer:document.getElementById("answer"),
+	logger:document.getElementById("logger"),
+}
+
+function show(s){
+	dom.logger.innerHTML += "<br>" + s;
+}
+
+function answer(s){
+	dom.answer.innerHTML = s;
+}
+
+
+function dothing(){
+	let n = fiba(dom.input1.value);
+	answer(n);
+}
+
+function fact(n){
+	//show(n);
+	if (n <=1)
+		return 1;
+	
+	
+	let res = fact(n-1)*n;
+	//show("res = " + res);
+	return res;
+}
+
+function fiba(n){
+	
+	if (n <=1)
+		return n;
+	
+	return fiba(n-1) + fiba(n-2); 
+
+}
+
+</script>
+
+
+</html>
